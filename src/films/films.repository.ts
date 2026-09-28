@@ -1,10 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, QueryFailedError } from 'typeorm';
 import { Film } from './entities/film.entity';
 import { IFilmsRepository } from './interfaces/films.repository.interface';
 import { CreateFilmDto } from './dto/create-film.dto';
 import { UpdateFilmDto } from './dto/update-film.dto';
+
+const PG_UNIQUE_VIOLATION = '23505';
 
 @Injectable()
 export class FilmsRepository implements IFilmsRepository {
@@ -26,12 +28,26 @@ export class FilmsRepository implements IFilmsRepository {
   }
 
   async create(data: CreateFilmDto): Promise<Film> {
-    const film = this.repo.create(data);
-    return this.repo.save(film);
+    try {
+      const film = this.repo.create(data);
+      return await this.repo.save(film);
+    } catch (err) {
+      if (err instanceof QueryFailedError && (err as any).code === PG_UNIQUE_VIOLATION) {
+        throw new ConflictException(`A film with episode_id ${data.episode_id} already exists`);
+      }
+      throw err;
+    }
   }
 
   async update(id: number, data: UpdateFilmDto): Promise<Film | null> {
-    await this.repo.update(id, data);
+    try {
+      await this.repo.update(id, data);
+    } catch (err) {
+      if (err instanceof QueryFailedError && (err as any).code === PG_UNIQUE_VIOLATION) {
+        throw new ConflictException(`A film with episode_id ${data.episode_id} already exists`);
+      }
+      throw err;
+    }
     return this.findById(id);
   }
 

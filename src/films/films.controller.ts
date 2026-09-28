@@ -75,6 +75,7 @@ export class FilmsController {
   @ApiResponse({ status: 400, description: 'Validation error' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 409, description: 'episode_id already exists' })
   create(@Body() dto: CreateFilmDto) {
     return this.filmsService.create(dto);
   }
@@ -90,6 +91,7 @@ export class FilmsController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Film not found' })
+  @ApiResponse({ status: 409, description: 'episode_id already exists' })
   update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateFilmDto) {
     return this.filmsService.update(id, dto);
   }

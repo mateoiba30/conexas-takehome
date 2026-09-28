@@ -15,11 +15,10 @@ export class CreateFilmDto {
   @MaxLength(255)
   title: string;
 
-  @ApiPropertyOptional({ example: 4 })
-  @IsOptional()
+  @ApiProperty({ example: 4 })
   @IsInt()
   @Min(1)
-  episode_id?: number;
+  episode_id: number;
 
   @ApiPropertyOptional({ example: 'It is a period of civil war...' })
   @IsOptional()

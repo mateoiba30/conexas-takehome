@@ -18,8 +18,8 @@ export class Film {
   @Column({ length: 255 })
   title: string;
 
-  @ApiPropertyOptional({ example: 4 })
-  @Column({ nullable: true })
+  @ApiProperty({ example: 4 })
+  @Column({ nullable: false, unique: true })
   episode_id: number;
 
   @ApiPropertyOptional({ example: 'It is a period of civil war...' })
