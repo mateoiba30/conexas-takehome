@@ -2,7 +2,25 @@
 
 REST API built with NestJS for Star Wars film management.
 
-## Running with Docker (recommended)
+---
+
+## Getting started
+
+### Option 1: Live deploy (no setup required)
+
+The API is deployed at:
+
+```
+https://conexas-takehome-production.up.railway.app
+```
+
+Swagger: `https://conexas-takehome-production.up.railway.app/api`
+
+Nothing to install or run. Go directly to the [Testing the API](#testing-the-api) section.
+
+---
+
+### Option 2: Docker (recommended for local)
 
 The only requirement is having Docker installed.
 
@@ -11,32 +29,22 @@ cp .env.example .env && docker-compose up --build
 ```
 
 API: `http://localhost:3000`  
-Swagger: `http://localhost:3000/api`  
-Adminer (DB viewer): `http://localhost:8080`
+Swagger: `http://localhost:3000/api`
 
 On first boot the app automatically syncs all Star Wars films from SWAPI and creates two seed users. No manual step needed.
 
 **Seed users:**
 
-| Role    | Email             | Password  |
-|---------|-------------------|-----------|
+| Role    | Email             | Password   |
+|---------|-------------------|------------|
 | admin   | admin@conexa.com  | Admin1234  |
 | regular | user@conexa.com   | User1234   |
 
-**Adminer (DB viewer):** `http://localhost:8080`  
-System: `PostgreSQL`, Server: `db`, Username: `postgres`, Password: `postgres`, Database: `conexa`
+---
 
-## Testing the API
+### Option 3: Local without Docker
 
-1. Go to `http://localhost:3000/api`
-2. Execute `POST /auth/login` — credentials are pre-filled as examples
-3. Copy the `access_token` from the response
-4. Click "Authorize" in the top right and paste the token
-5. All protected endpoints will now work automatically
-
-## Running locally (development)
-
-1. Copy `.env.example` to `.env` and fill in the values.
+1. Copy `.env.example` to `.env` and fill in your database connection values.
 2. Start a PostgreSQL instance.
 3. Run:
 
@@ -45,7 +53,33 @@ npm install
 npm run start:dev
 ```
 
-## Testing
+---
+
+## Testing the API
+
+### Swagger
+
+1. Go to `<base-url>/api` (e.g. `https://conexas-takehome-production.up.railway.app/api`)
+2. Execute `POST /auth/login` — credentials are pre-filled as examples
+3. Copy the `access_token` from the response
+4. Click "Authorize" in the top right and paste the token
+5. All protected endpoints will now work automatically
+
+### Adminer (DB viewer) — local only
+
+Available when running with Docker at `http://localhost:8080`.
+
+| Field    | Value      |
+|----------|------------|
+| System   | PostgreSQL |
+| Server   | db         |
+| Username | postgres   |
+| Password | postgres   |
+| Database | conexa     |
+
+Adminer is not available on the live deploy.
+
+### Unit tests — local only
 
 ```bash
 npm test
