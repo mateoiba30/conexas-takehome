@@ -21,6 +21,7 @@ import {
 import { FilmsService } from './films.service';
 import { CreateFilmDto } from './dto/create-film.dto';
 import { UpdateFilmDto } from './dto/update-film.dto';
+import { Film } from './entities/film.entity';
 import { JwtGuard } from '../auth/guards/jwt.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
@@ -32,7 +33,7 @@ export class FilmsController {
 
   @Get()
   @ApiOperation({ summary: 'List all films (public)' })
-  @ApiResponse({ status: 200, description: 'Array of films. These are the droids you are looking for.' })
+  @ApiResponse({ status: 200, type: [Film], description: 'Array of films. These are the droids you are looking for.' })
   findAll() {
     return this.filmsService.findAll();
   }
@@ -56,7 +57,7 @@ export class FilmsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get film details (regular + admin)' })
   @ApiParam({ name: 'id', type: Number })
-  @ApiResponse({ status: 200, description: 'Film details. The Force will be with you, always.' })
+  @ApiResponse({ status: 200, type: Film, description: 'Film details. The Force will be with you, always.' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Film not found' })
@@ -70,7 +71,7 @@ export class FilmsController {
   @HttpCode(HttpStatus.CREATED)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create a film (admin only)' })
-  @ApiResponse({ status: 201, description: 'Film created. Do. Or do not. There is no try.' })
+  @ApiResponse({ status: 201, type: Film, description: 'Film created. Do. Or do not. There is no try.' })
   @ApiResponse({ status: 400, description: 'Validation error' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
@@ -84,7 +85,7 @@ export class FilmsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update a film (admin only)' })
   @ApiParam({ name: 'id', type: Number })
-  @ApiResponse({ status: 200, description: 'Film updated. Your focus determines your reality.' })
+  @ApiResponse({ status: 200, type: Film, description: 'Film updated. Your focus determines your reality.' })
   @ApiResponse({ status: 400, description: 'Validation error' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
