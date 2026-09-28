@@ -26,6 +26,14 @@ On first boot the app automatically syncs all Star Wars films from SWAPI and cre
 **Adminer (DB viewer):** `http://localhost:8080`  
 System: `PostgreSQL`, Server: `db`, Username: `postgres`, Password: `postgres`, Database: `conexa`
 
+## Testing the API
+
+1. Go to `http://localhost:3000/api`
+2. Execute `POST /auth/login` — credentials are pre-filled as examples
+3. Copy the `access_token` from the response
+4. Click "Authorize" in the top right and paste the token
+5. All protected endpoints will now work automatically
+
 ## Running locally (development)
 
 1. Copy `.env.example` to `.env` and fill in the values.
