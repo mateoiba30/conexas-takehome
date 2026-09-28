@@ -25,6 +25,7 @@ import { Film } from './entities/film.entity';
 import { JwtGuard } from '../auth/guards/jwt.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
+import { PositiveIntPipe } from '../common/pipes/positive-int.pipe';
 
 @ApiTags('films')
 @Controller('films')
@@ -58,10 +59,11 @@ export class FilmsController {
   @ApiOperation({ summary: 'Get film details (regular + admin)' })
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, type: Film, description: 'Film details. The Force will be with you, always.' })
+  @ApiResponse({ status: 400, description: 'Invalid id' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Film not found' })
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  findOne(@Param('id', ParseIntPipe, PositiveIntPipe) id: number) {
     return this.filmsService.findById(id);
   }
 
@@ -92,7 +94,7 @@ export class FilmsController {
   @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Film not found' })
   @ApiResponse({ status: 409, description: 'episode_id already exists' })
-  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateFilmDto) {
+  update(@Param('id', ParseIntPipe, PositiveIntPipe) id: number, @Body() dto: UpdateFilmDto) {
     return this.filmsService.update(id, dto);
   }
 
@@ -107,7 +109,7 @@ export class FilmsController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Film not found' })
-  remove(@Param('id', ParseIntPipe) id: number) {
+  remove(@Param('id', ParseIntPipe, PositiveIntPipe) id: number) {
     return this.filmsService.delete(id);
   }
 }
