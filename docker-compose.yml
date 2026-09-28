@@ -18,17 +18,17 @@ services:
       - '3000:3000'
     environment:
       DATABASE_HOST: db
-      DATABASE_PORT: 5432
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: postgres
-      DATABASE_NAME: conexa
-      JWT_SECRET: supersecretjwtkey
-      JWT_EXPIRES_IN: 1d
-      PORT: 3000
-      SEED_ADMIN_EMAIL: admin@conexa.com
-      SEED_ADMIN_PASSWORD: admin123
-      SEED_USER_EMAIL: user@conexa.com
-      SEED_USER_PASSWORD: user123
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      PORT: ${PORT}
+      SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD}
+      SEED_USER_EMAIL: ${SEED_USER_EMAIL}
+      SEED_USER_PASSWORD: ${SEED_USER_PASSWORD}
     depends_on:
       - db
 

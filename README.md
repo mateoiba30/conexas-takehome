@@ -7,7 +7,7 @@ REST API built with NestJS for Star Wars film management.
 The only requirement is having Docker installed.
 
 ```bash
-docker-compose up --build
+cp .env.example .env && docker-compose up --build
 ```
 
 API: `http://localhost:3000`  
