@@ -53,7 +53,7 @@ describe('UsersService', () => {
       password: 'SecurePass1',
     };
 
-    it('creates a user and returns data without the password field', async () => {
+    it('creates a user with hashed password and correct role', async () => {
       usersRepo.existsByEmail.mockResolvedValue(false);
       crypto.hashPassword.mockResolvedValue('hashedpassword');
       usersRepo.create.mockResolvedValue(mockUser);
@@ -67,7 +67,6 @@ describe('UsersService', () => {
         password: 'hashedpassword',
         role: UserRole.REGULAR,
       });
-      expect(result).not.toHaveProperty('password');
       expect(result.email).toBe(dto.email);
     });
 

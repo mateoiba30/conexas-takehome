@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Exclude } from 'class-transformer';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -24,6 +25,7 @@ export class User {
   @Column({ length: 255, unique: true })
   email: string;
 
+  @Exclude()
   @Column({ length: 255 })
   password: string;
 

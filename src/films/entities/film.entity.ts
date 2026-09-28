@@ -7,6 +7,7 @@ import {
   DeleteDateColumn,
 } from 'typeorm';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Exclude } from 'class-transformer';
 
 @Entity('films')
 export class Film {
@@ -58,15 +59,15 @@ export class Film {
   @Column('text', { array: true, nullable: true, default: [] })
   vehicles: string[];
 
-  @ApiProperty({ example: '2024-01-01T00:00:00.000Z' })
+  @Exclude()
   @CreateDateColumn()
   created_at: Date;
 
-  @ApiProperty({ example: '2024-01-01T00:00:00.000Z' })
+  @Exclude()
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ApiPropertyOptional({ example: null, nullable: true })
+  @Exclude()
   @DeleteDateColumn()
   deleted_at: Date | null;
 }

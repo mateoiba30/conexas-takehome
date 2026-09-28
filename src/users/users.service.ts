@@ -15,7 +15,7 @@ export class UsersService {
     private readonly crypto: CryptoService,
   ) {}
 
-  async create(dto: CreateUserDto): Promise<Omit<User, 'password'>> {
+  async create(dto: CreateUserDto): Promise<User> {
     this.logger.debug({ email: dto.email }, 'UsersService.create: entry');
 
     const exists = await this.usersRepo.existsByEmail(dto.email);
@@ -35,8 +35,7 @@ export class UsersService {
 
     this.logger.log({ userId: user.id, email: user.email, quote: randomQuote() }, 'UsersService.create: user created');
 
-    const { password, ...result } = user;
-    return result;
+    return user;
   }
 
   async seedUser(email: string, password: string, role: UserRole): Promise<void> {
