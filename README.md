@@ -2,18 +2,23 @@
 
 REST API built with NestJS for Star Wars film management.
 
-## Running with Docker
+## Running with Docker (recommended)
+
+The only requirement is having Docker installed.
 
 ```bash
 docker-compose up --build
 ```
 
 API: `http://localhost:3000`  
-Swagger: `http://localhost:3000/api`
+Swagger: `http://localhost:3000/api`  
+Adminer (DB viewer): `http://localhost:8080`
+
+To log into Adminer use System: `PostgreSQL`, Server: `db`, Username: `postgres`, Password: `postgres`, Database: `conexa`.
 
 On first boot the app automatically syncs all Star Wars films from SWAPI. No manual step needed.
 
-## Running locally
+## Running locally (development)
 
 1. Copy `.env.example` to `.env` and fill in the values.
 2. Start a PostgreSQL instance.
