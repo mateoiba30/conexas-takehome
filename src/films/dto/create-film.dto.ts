@@ -6,16 +6,20 @@ import {
   IsDateString,
   MaxLength,
   Min,
+  IsNotEmpty,
+  IsDefined,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateFilmDto {
   @ApiProperty({ example: 'A New Hope' })
+  @IsNotEmpty({ message: 'title is required' })
   @IsString()
   @MaxLength(255)
   title: string;
 
   @ApiProperty({ example: 4 })
+  @IsDefined({ message: 'episode_id is required' })
   @IsInt()
   @Min(1)
   episode_id: number;
