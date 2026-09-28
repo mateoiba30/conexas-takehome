@@ -12,15 +12,15 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty({ example: 'Juan' })
+  @ApiProperty({ example: 'Luke' })
   @Column({ length: 100 })
   name: string;
 
-  @ApiProperty({ example: 'Pérez' })
+  @ApiProperty({ example: 'Skywalker' })
   @Column({ length: 100 })
   lastname: string;
 
-  @ApiProperty({ example: 'juan@example.com' })
+  @ApiProperty({ example: 'luke@rebellion.com' })
   @Column({ length: 255, unique: true })
   email: string;
 
