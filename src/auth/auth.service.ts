@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { CryptoService } from '../common/services/crypto.service';
 import { IUsersRepository } from '../users/interfaces/users.repository.interface';
 import { LoginDto } from './dto/login.dto';
+import { randomQuote } from '../common/star-wars.quotes';
 
 @Injectable()
 export class AuthService {
@@ -33,7 +34,7 @@ export class AuthService {
     const payload = { sub: user.id, email: user.email, role: user.role };
     const access_token = this.jwtService.sign(payload);
 
-    this.logger.log({ userId: user.id, email: user.email }, 'AuthService.login: login successful');
+    this.logger.log({ userId: user.id, email: user.email, quote: randomQuote() }, 'AuthService.login: login successful');
 
     return { access_token };
   }

@@ -4,6 +4,7 @@ import { ISwapiClient, SwapiFilmProperties } from '../swapi/interfaces/swapi-cli
 import { CreateFilmDto } from './dto/create-film.dto';
 import { UpdateFilmDto } from './dto/update-film.dto';
 import { Film } from './entities/film.entity';
+import { randomQuote } from '../common/star-wars.quotes';
 
 @Injectable()
 export class FilmsService {
@@ -79,7 +80,7 @@ export class FilmsService {
     this.logger.debug({ mapSize: Object.keys(nameMap).length }, 'FilmsService.syncFromSwapi: nameMap fetched');
 
     const result = await this.updateFilmsData(swapiFilms, nameMap);
-    this.logger.log(result, 'FilmsService.syncFromSwapi: sync complete');
+    this.logger.log({ ...result, quote: randomQuote() }, 'FilmsService.syncFromSwapi: sync complete');
     return result;
   }
 

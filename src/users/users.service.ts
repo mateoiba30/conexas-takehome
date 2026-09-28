@@ -3,6 +3,7 @@ import { CryptoService } from '../common/services/crypto.service';
 import { IUsersRepository } from './interfaces/users.repository.interface';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User, UserRole } from './entities/user.entity';
+import { randomQuote } from '../common/star-wars.quotes';
 
 @Injectable()
 export class UsersService {
@@ -32,7 +33,7 @@ export class UsersService {
       role: UserRole.REGULAR,
     });
 
-    this.logger.log({ userId: user.id, email: user.email }, 'UsersService.create: user created');
+    this.logger.log({ userId: user.id, email: user.email, quote: randomQuote() }, 'UsersService.create: user created');
 
     const { password, ...result } = user;
     return result;

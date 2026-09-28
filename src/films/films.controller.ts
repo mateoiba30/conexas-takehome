@@ -32,7 +32,7 @@ export class FilmsController {
 
   @Get()
   @ApiOperation({ summary: 'List all films (public)' })
-  @ApiResponse({ status: 200, description: 'Array of films' })
+  @ApiResponse({ status: 200, description: 'Array of films. These are the droids you are looking for.' })
   findAll() {
     return this.filmsService.findAll();
   }
@@ -40,9 +40,12 @@ export class FilmsController {
   @Post('sync')
   @UseGuards(JwtGuard, RolesGuard)
   @Roles('admin')
+  @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Sync films from SWAPI (admin only)' })
-  @ApiResponse({ status: 201, description: 'Returns { added: number, skipped: number }' })
+  @ApiResponse({ status: 200, description: 'Returns { added: number, skipped: number }. The Jedi archives have been updated.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   sync() {
     return this.filmsService.syncFromSwapi();
   }
@@ -53,8 +56,9 @@ export class FilmsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get film details (regular + admin)' })
   @ApiParam({ name: 'id', type: Number })
-  @ApiResponse({ status: 200, description: 'Film details' })
+  @ApiResponse({ status: 200, description: 'Film details. The Force will be with you, always.' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Film not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.filmsService.findById(id);
@@ -66,7 +70,8 @@ export class FilmsController {
   @HttpCode(HttpStatus.CREATED)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create a film (admin only)' })
-  @ApiResponse({ status: 201, description: 'Film created' })
+  @ApiResponse({ status: 201, description: 'Film created. Do. Or do not. There is no try.' })
+  @ApiResponse({ status: 400, description: 'Validation error' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   create(@Body() dto: CreateFilmDto) {
@@ -79,7 +84,10 @@ export class FilmsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update a film (admin only)' })
   @ApiParam({ name: 'id', type: Number })
-  @ApiResponse({ status: 200, description: 'Film updated' })
+  @ApiResponse({ status: 200, description: 'Film updated. Your focus determines your reality.' })
+  @ApiResponse({ status: 400, description: 'Validation error' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Film not found' })
   update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateFilmDto) {
     return this.filmsService.update(id, dto);
@@ -92,7 +100,9 @@ export class FilmsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete a film (admin only)' })
   @ApiParam({ name: 'id', type: Number })
-  @ApiResponse({ status: 204, description: 'Film deleted' })
+  @ApiResponse({ status: 204, description: 'Film deleted. I find your lack of faith disturbing.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Film not found' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.filmsService.delete(id);
