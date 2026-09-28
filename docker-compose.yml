@@ -25,6 +25,10 @@ services:
       JWT_SECRET: supersecretjwtkey
       JWT_EXPIRES_IN: 1d
       PORT: 3000
+      SEED_ADMIN_EMAIL: admin@conexa.com
+      SEED_ADMIN_PASSWORD: admin123
+      SEED_USER_EMAIL: user@conexa.com
+      SEED_USER_PASSWORD: user123
     depends_on:
       - db
 

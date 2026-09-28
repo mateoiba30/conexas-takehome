@@ -38,4 +38,15 @@ export class UsersService {
     const { password, ...result } = user;
     return result;
   }
+
+  async seedUser(email: string, password: string, role: UserRole): Promise<void> {
+    const exists = await this.usersRepo.existsByEmail(email);
+    if (exists) {
+      this.logger.debug({ email }, 'UsersService.seedUser: already exists, skipping');
+      return;
+    }
+    const hashedPassword = await this.crypto.hashPassword(password);
+    await this.usersRepo.create({ name: 'Seed', lastname: 'User', email, password: hashedPassword, role });
+    this.logger.log({ email, role }, 'UsersService.seedUser: user created');
+  }
 }

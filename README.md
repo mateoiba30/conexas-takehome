@@ -14,9 +14,17 @@ API: `http://localhost:3000`
 Swagger: `http://localhost:3000/api`  
 Adminer (DB viewer): `http://localhost:8080`
 
-To log into Adminer use System: `PostgreSQL`, Server: `db`, Username: `postgres`, Password: `postgres`, Database: `conexa`.
+On first boot the app automatically syncs all Star Wars films from SWAPI and creates two seed users. No manual step needed.
 
-On first boot the app automatically syncs all Star Wars films from SWAPI. No manual step needed.
+**Seed users:**
+
+| Role    | Email             | Password  |
+|---------|-------------------|-----------|
+| admin   | admin@conexa.com  | admin123  |
+| regular | user@conexa.com   | user123   |
+
+**Adminer (DB viewer):** `http://localhost:8080`  
+System: `PostgreSQL`, Server: `db`, Username: `postgres`, Password: `postgres`, Database: `conexa`
 
 ## Running locally (development)
 
