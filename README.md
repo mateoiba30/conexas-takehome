@@ -20,8 +20,8 @@ On first boot the app automatically syncs all Star Wars films from SWAPI and cre
 
 | Role    | Email             | Password  |
 |---------|-------------------|-----------|
-| admin   | admin@conexa.com  | admin123  |
-| regular | user@conexa.com   | user123   |
+| admin   | admin@conexa.com  | Admin1234  |
+| regular | user@conexa.com   | User1234   |
 
 **Adminer (DB viewer):** `http://localhost:8080`  
 System: `PostgreSQL`, Server: `db`, Username: `postgres`, Password: `postgres`, Database: `conexa`
